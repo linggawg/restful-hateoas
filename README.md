@@ -1,2 +1,1 @@
-# restful-hateoas
-RESTful service with Spring Hateoas
+# RESTful service with Spring Hateoas
