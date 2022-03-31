@@ -97,7 +97,7 @@ public class EmployeeController {
 
     @GetMapping("/employees/export")
     public ResponseEntity<HttpServletResponse> exportEmployee(HttpServletResponse response) {
-        try{
+        try {
             List<Employee> employees = repository.findAll();
             List<String> headers = Arrays.asList("First Name", "Last Name", "Role");
 
@@ -118,13 +118,13 @@ public class EmployeeController {
             style.setFont(font);
 
             XSSFRow rowHeader = sheet.createRow(0);
-            for(String header : headers){
+            for (String header : headers) {
                 exportService.createCell(rowHeader, headers.indexOf(header), header, style);
             }
 
-            for(Employee employee : employees){
+            for (Employee employee : employees) {
                 int indexRow = employees.indexOf(employee);
-                XSSFRow rowValue = sheet.createRow(indexRow+1);
+                XSSFRow rowValue = sheet.createRow(indexRow + 1);
 
                 int indexCell = 0;
                 exportService.createCell(rowValue, indexCell++, employee.getFirstName(), style);
@@ -132,7 +132,7 @@ public class EmployeeController {
                 exportService.createCell(rowValue, indexCell, employee.getRole(), style);
             }
 
-            for(String header : headers){
+            for (String header : headers) {
                 sheet.autoSizeColumn(headers.indexOf(header));
             }
 
@@ -141,7 +141,7 @@ public class EmployeeController {
             workbook.close();
             outputStream.close();
             return ResponseEntity.status(HttpStatus.OK).body(response);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
